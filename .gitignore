@@ -1,0 +1,11 @@
+# Ignore everything in the root except the "online-university" folder
+/*
+!/.gitignore
+!/wp-content/
+/wp-content/*
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/online-university/
+
+# Unignore files and directories in the "online-university" theme folder
+!/wp-content/themes/online-university/**
