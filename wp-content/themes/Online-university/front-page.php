@@ -21,9 +21,19 @@ get_header();
             <!-- Events Post Summary -->
             <!-- Custom Query to fetch 2 events -->
             <?php
+            $today = date('Ymd');
             $homePageEvents = new WP_Query(array(
-                'posts_per_page' => 2,
-                'post_type' => 'event'
+                'posts_per_page' => -1,
+                'post_type' => 'event',
+                'meta_key' => 'event_date',
+                'orderby' => 'meta_value_num',
+                'order' => 'ASC',
+                'meta_query' => array(
+                    'key' => 'event_date',
+                    'compare' => '>=',
+                    'value' => $today,
+                    'type' => 'numeric'
+                )
             ));
 
             while ($homePageEvents->have_posts()) {
@@ -46,7 +56,7 @@ get_header();
                         <p><?php if (has_excerpt()) {
                                 echo get_the_excerpt();
                             } else {
-                                echo wp_trim_words(get_the_content(), 18);
+                                echo wp_trim_words(get_the_content(), 15);
                             }
                             ?><a href="<?php the_permalink(); ?>" class="nu gray">Learn more</a></p>
                     </div>
