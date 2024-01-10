@@ -1,5 +1,5 @@
 <?php
-
+// All events Page
 get_header(); ?>
 
 <div class="page-banner">

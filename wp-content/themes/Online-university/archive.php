@@ -1,4 +1,5 @@
 <?php
+// All Blog Page
 get_header(); ?>
 
 <!-- Page Banner -->
