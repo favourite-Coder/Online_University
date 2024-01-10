@@ -6,6 +6,8 @@
 !/wp-content/themes/
 /wp-content/themes/*
 !/wp-content/themes/online-university/
+/wp-content/mu-plugins/**   # Corrected line for mu-plugins
 
 # Unignore files and directories in the "online-university" theme folder
 !/wp-content/themes/online-university/**
+

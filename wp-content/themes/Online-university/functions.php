@@ -35,4 +35,14 @@ function university_features(){
 
 // Hook into after_setup_theme action
 add_action('after_setup_theme', 'university_features');
-?>
+
+
+
+
+
+
+
+
+?> 
+
+
