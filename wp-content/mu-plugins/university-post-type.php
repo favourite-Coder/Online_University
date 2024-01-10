@@ -5,16 +5,18 @@
 function university_post_types() {
   register_post_type('event', array(
     'show_in_rest' => true,
-    'has_archive' => true,
-    'public' => true,
     'supports' => array('title', 'editor', 'excerpt'),
     'rewrite' => array('slug' => 'events'),
-     'labels' => array(
-      'name' => 'Events',
-      'add_new_item' => 'Add New Event',
-      'edit_item' => 'Edit Event',
-      'all_items' => 'All Events',
-      'singular_name' => 'Event'
+    'has_archive' => true,
+    'public' => true,
+    'labels' => array(
+      'name' => __( 'Events' ),
+      'add_new_item' => __( 'Add New Event' ),
+      'add_new' => __( 'Add New Event' ),
+      'edit_item' => __( 'Edit Event' ),
+      'all_items' =>__('All Events'),
+      'singular_name' => __( 'Event' ),
+      'menu_name' => __( 'Manage Events' )
     ),
     'menu_icon' => 'dashicons-calendar'
   ));
