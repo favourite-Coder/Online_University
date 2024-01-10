@@ -29,10 +29,12 @@ get_header();
                 'orderby' => 'meta_value_num',
                 'order' => 'ASC',
                 'meta_query' => array(
+                    array(
                     'key' => 'event_date',
                     'compare' => '>=',
                     'value' => $today,
                     'type' => 'numeric'
+                )
                 )
             ));
 
