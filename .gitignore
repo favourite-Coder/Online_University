@@ -7,3 +7,9 @@
 /wp-content/themes/*
 !/wp-content/themes/online-university/
 !/wp-content/mu-plugins/
+
+# Ignore node_modules inside the "online-university" folder
+/wp-content/themes/online-university/node_modules/
+
+# Ignore package-lock.json inside the "online-university" folder
+/wp-content/themes/online-university/package-lock.json
