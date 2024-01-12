@@ -1441,6 +1441,10 @@ body.admin-bar .search-overlay {
 }
 .link-list a {
   color: #f95738;
+  text-decoration: none;
+}
+.link-list a:hover{
+  color: #2e31eb;
 }
 .metabox {
   background-color: #faf0ca;
