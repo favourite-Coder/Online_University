@@ -1,8 +1,9 @@
 <?php
 
+function university_post_types() {
 // EVENT Custom Post Type
 
-function university_post_types() {
+
   register_post_type('event', array(
     'show_in_rest' => true,
     'supports' => array('title', 'editor', 'excerpt'),
@@ -16,7 +17,6 @@ function university_post_types() {
       'edit_item' => __( 'Edit Event' ),
       'all_items' =>__('All Events'),
       'singular_name' => __( 'Event' ),
-      'menu_name' => __( 'Manage Events' )
     ),
     'menu_icon' => 'dashicons-calendar'
   ));
@@ -59,5 +59,6 @@ function university_post_types() {
   )); 
 
 }
+
 
 add_action('init', 'university_post_types');
