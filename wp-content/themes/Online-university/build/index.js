@@ -107,56 +107,159 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+//JQuery
+/*import $ from 'jquery';
 
 class Search {
-  // 1. Describe and create/initiate our object
+    // 1. Describe and create/initiate our object
+    constructor() {
+        this.resultDiv = $("#search-overlay__results");
+        this.openButton = $(".js-search-trigger");
+        this.closeButton = $(".search-overlay__close");
+        this.searchOverlay = $(".search-overlay");
+        this.searchField = $("#search-term");
+        this.events();
+        this.isOverlayOpen = false;
+        this.isSpinnerVisible = false;
+        this.previousValue;
+        this.typingTimer;
+
+    }
+
+    //2. Events
+    events() {
+        this.openButton.on("click", this.openOverlay.bind(this));
+        this.closeButton.on("click", this.closeOverlay.bind(this));
+        $(document).on("keydown", this.keyPressDispatcher.bind(this));
+        this.searchField.on("keyup", this.typingLogic.bind(this));
+    }
+
+
+    //3. methods (function, action...)
+    typingLogic () {
+        if (this.searchField.val() != this.previousValue) {
+            clearTimeout(this.typingTimer);
+
+        if (this.searchField.val()) {
+
+            if(!this.isSpinnerVisible) {
+                this.resultDiv.html('<div class="spinner-loader"></div>');
+                this.isSpinnerVisible = true;
+            }
+            this.typingTimer = 
+            setTimeout(this.getResults.bind(this), 2000);
+            
+        }else {
+            this.resultDiv.html('');
+            this.isSpinnerVisible = false;
+        }
+    }
+    
+    this.previousValue = this.searchField.val();
+    }
+    getResults() {
+        this.resultDiv.html("Imagaine a real developer");
+        this.isSpinnerVisible = false;
+    }
+
+    keyPressDispatcher(e) {
+        if (e.keyCode == 83 && !this.isOverlayOpen
+             && !$("input, textarea").is(':focus')) {
+            this.openOverlay();
+        }
+        if (e.keyCode == 27 && this.isOverlayOpen) {
+            this.closeOverlay();
+        }
+    }
+
+    openOverlay() {
+        this.searchOverlay.addClass("search-overlay--active");
+        $("body").addClass("body-no-scroll");
+        console.log("hey am open");
+        this.isOverlayOpen = true;
+
+    }
+
+    closeOverlay() {
+        this.searchOverlay.removeClass("search-overlay--active");
+        $("body").removeClass("body-no-scroll");
+        console.log("Haa am closed");
+        this.isOverlayOpen = false;
+    }
+
+}
+export default Search; */
+
+//Vanilla Javascript
+class Search {
+  //describe and initiate object
   constructor() {
-    this.openButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".js-search-trigger");
-    this.closeButton = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay__close");
-    this.searchOverlay = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".search-overlay");
-    this.searchField = jquery__WEBPACK_IMPORTED_MODULE_0___default()("#search-term");
+    this.openButton = document.querySelector('.js-search-trigger');
+    this.closeButton = document.querySelector('.search-overlay__close');
+    this.searchOverlay = document.querySelector('.search-overlay');
+    this.searchField = document.getElementById('search-term');
+    this.resultsDiv = document.getElementById('search-overlay__results');
+    this.allInputs = document.querySelectorAll('input, textarea');
+    this.overlayOpen = false;
+    this.spinnerVisible = false;
+    this.timer;
+    this.oldValue;
     this.events();
-    this.isOverlayOpen = false;
-    this.typingTimer;
   }
 
-  //2. Events
-  events() {
-    this.openButton.on("click", this.openOverlay.bind(this));
-    this.closeButton.on("click", this.closeOverlay.bind(this));
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on("keyup", this.keyPressDispatcher.bind(this));
-    this.searchField.on("keydown", this.typingLogic.bind(this));
-  }
+  //events
+  events = () => {
+    this.openButton.addEventListener('click', this.openOverlay);
+    this.closeButton.addEventListener('click', this.closeOverlay);
+    document.addEventListener('keydown', this.keyPressDispatcher);
+    this.searchField.addEventListener('keyup', this.typingLogic);
+  };
 
-  //3. methods (function, action...)
-  typingLogic() {
-    clearTimeout(this.typingTimer);
-    this.typingTimer = setTimeout(function () {
-      console.log("sup developer");
-    }, 2000);
-  }
-  keyPressDispatcher(e) {
-    if (e.keyCode == 83 && !this.isOverlayOpen) {
-      this.openOverlay();
+  //methods (functions)
+  openOverlay = () => {
+    this.searchOverlay.classList.add('search-overlay--active');
+    document.querySelector('body').classList.add('body-no-scroll');
+    this.overlayOpen = true;
+  };
+  closeOverlay = () => {
+    this.searchOverlay.classList.remove('search-overlay--active');
+    document.querySelector('body').classList.remove('body-no-scroll');
+    this.overlayOpen = false;
+  };
+  keyPressDispatcher = key => {
+    if (key.key === 's' && !this.overlayOpen && this.checkFocus(this.allInputs)) this.openOverlay();
+    if (key.key === 'Escape' && this.overlayOpen && this.checkFocus(this.allInputs)) this.closeOverlay();
+  };
+  typingLogic = () => {
+    if (this.searchField.value != this.oldValue) {
+      clearTimeout(this.timer);
+      if (this.searchField.value) {
+        if (!this.spinnerVisible) {
+          this.resultsDiv.innerHTML = '<div class="spinner-loader"></div>';
+          this.spinnerVisible = true;
+        }
+        this.timer = setTimeout(this.getResults, 1000);
+      } else {
+        this.resultsDiv.innerHTML = '';
+        this.spinnerVisible = false;
+      }
     }
-    if (e.keyCode == 27 && this.isOverlayOpen) {
-      this.closeOverlay();
+    this.oldValue = this.searchField.value;
+  };
+  getResults = () => {
+    this.resultsDiv.innerHTML = 'Search Results';
+    this.spinnerVisible = false;
+  };
+  checkFocus = all => {
+    //loops through all inputs
+    for (const el of all) {
+      //checks if any of the inputs have focus
+      //returns false as soon as it finds focused elements
+      if (document.activeElement == el) return false;
     }
-  }
-  openOverlay() {
-    this.searchOverlay.addClass("search-overlay--active");
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").addClass("body-no-scroll");
-    console.log("hey am open");
-    this.isOverlayOpen = true;
-  }
-  closeOverlay() {
-    this.searchOverlay.removeClass("search-overlay--active");
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()("body").removeClass("body-no-scroll");
-    console.log("Haa am closed");
-    this.isOverlayOpen = false;
-  }
+    //else return true
+    return true;
+  };
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Search);
 
@@ -171,16 +274,6 @@ class Search {
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
-
-/***/ }),
-
-/***/ "jquery":
-/*!*************************!*\
-  !*** external "jQuery" ***!
-  \*************************/
-/***/ ((module) => {
-
-module.exports = window["jQuery"];
 
 /***/ }),
 
@@ -4133,18 +4226,6 @@ var Glide = /*#__PURE__*/function (_Core) {
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
