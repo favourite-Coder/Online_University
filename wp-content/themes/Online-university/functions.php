@@ -53,6 +53,10 @@ function university_files() {
 
     // Load extra style CSS
     wp_enqueue_style('university_extra_style', get_theme_file_uri('/build/index.css'));
+
+   wp_localize_script('university_main_js', 'universityData', array(
+    'root_url' => get_site_url()
+   )); 
 }
 
 // Hook into wp_enqueue_scripts action

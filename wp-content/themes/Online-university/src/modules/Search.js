@@ -49,17 +49,20 @@ class Search {
         this.previousValue = this.searchField.val();
     }
     getResults() {
-        $.getJSON('http://online-university.local/wp-json/wp/v2/posts?search=' + this.searchField.val(),
+        $.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val(),
             posts => {
                 this.resultDiv.html(`
                 <h2 class="search-overlay__section-title">Your Result</h2>
                 <ul class="link-list min-list">
+                ${posts.length ? '<ul class="link-list min-list">' : '<p>Sorry, No result found...</p>'}
+
                   ${posts.map(item => `
                   <li><a href="${item.link}">${item.title.rendered}</a></li>
                   ` ).join('')}
-                </ul>
-                
-     `);
+                  ${posts.length ?  '</ul>' : ''}
+
+              `);
+              this.isSpinnerVisible = false;
             });
     }
 
