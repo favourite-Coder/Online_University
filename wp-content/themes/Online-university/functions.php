@@ -53,7 +53,7 @@ function university_files() {
     wp_enqueue_script('university_main_js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
 
     // Enqueue Google Fonts
-    wp_enqueue_style('custome-google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
+    wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
 
     // Enqueue Font Awesome icons
     wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -124,9 +124,59 @@ add_action('pre_get_posts', 'university_adjust_queries');
 
 
 
+//Redirect subscriber account out of admin to homepage
 
+add_action('admin_init', 'redirectSubsToFrontend');
 
+function redirectSubsToFrontend() {
+  $ourCurrentUser = wp_get_current_user();
 
-?> 
+  if (count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles [0] == 'subscriber')  
+  {
+     wp_redirect(site_url('/'));
+     exit;
+  }
+}
 
+//hiding admin header for users
 
+add_action('wp_loaded', 'noSubsAdminBar');
+
+function noSubsAdminBar() {
+  $ourCurrentUser = wp_get_current_user();
+
+  if (count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles [0] == 'subscriber')  
+  {
+     show_admin_bar(false);
+  }
+}
+
+//customize login screen
+
+add_filter('login_headerurl', 'ourHeaderUrl');
+
+function ourHeaderUrl() {
+  return esc_url(site_url('/'));
+}
+
+add_action('login_enqueue_scripts', 'ourLoginCSS');
+
+function ourLoginCSS() {
+  // Enqueue Google Fonts
+  wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
+
+  // Enqueue Font Awesome icons
+  wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+  // Load main style CSS
+  wp_enqueue_style('university_main_style', get_theme_file_uri('/build/style-index.css'));
+
+  // Load extra style CSS
+  wp_enqueue_style('university_extra_style', get_theme_file_uri('/build/index.css'));
+}
+
+add_filter('login_headertitle', 'ourLoginTitle');
+ 
+function ourLoginTitle(){
+    return get_bloginfo('name');
+}
