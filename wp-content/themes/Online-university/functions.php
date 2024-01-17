@@ -1,10 +1,11 @@
 <?php 
 
+require get_theme_file_path('/inc/like-route.php');
 require get_theme_file_path('/inc/search-route.php');
 
 function university_custom_rest() {
   register_rest_field('post', 'authorName', array(
-    'get_callback' => function () {return get_the_author() ;}
+    'get_callback' => function() {return get_the_author();}
   ));
 
   register_rest_field('note', 'userNoteCount', array(
