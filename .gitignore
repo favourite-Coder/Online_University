@@ -9,14 +9,22 @@
 !/wp-content/mu-plugins/
 !/wp-content/plugins/
 /wp-content/plugins/*
-!/wp-content/plugins/attention-quiz/
 !/wp-content/plugins/word-filter-plugin/
 !/wp-content/plugins/my-first-unique-plugin/
+!/wp-content/plugins/attention-quiz/
+!/wp-content/plugins/attention-quiz/*
+!/wp-content/plugins/attention-quiz/src
+!/wp-content/plugins/attention-quiz/php/
+
+
 
 
 
 # Ignore node_modules inside the "online-university" folder
 /wp-content/themes/online-university/node_modules/
+/wp-content/plugins/attention-quiz/node_modules/
 
 # Ignore package-lock.json inside the "online-university" folder
 /wp-content/themes/online-university/package-lock.json
+/wp-content/plugins/attention-quiz/package-lock.json/
+
