@@ -9,7 +9,11 @@
 !/wp-content/mu-plugins/
 !/wp-content/plugins/
 /wp-content/plugins/*
+!/wp-content/plugins/Block_Types_Plugin/
+!/wp-content/plugins/Word_Filter_Plugin/
 !/wp-content/plugins/my-first-unique-plugin/
+
+
 
 # Ignore node_modules inside the "online-university" folder
 /wp-content/themes/online-university/node_modules/
